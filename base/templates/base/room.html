@@ -1,4 +1,5 @@
 {% extends 'base/main.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -8,11 +9,11 @@
     </section>
 
     <section id="video-streams">
-        <div class="video-container" id="user-container-1">
-            <div class="username-wrapper"><span class="user-name">My name</span></div>
-            <div class="video-player" id="user-1"></div>
-        </div>
+
     </section>
 </main>
+
+<script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.22.1.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/streams.js' %}"></script>
 
 {% endblock content %}
