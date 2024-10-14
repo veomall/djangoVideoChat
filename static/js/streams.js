@@ -10,6 +10,7 @@ let remoteUsers = {}
 
 let joinAndDisplayLocalStream = async () => {
     client.on('user-published', handleUserJoined)
+    client.on('user-left', handleUserLeft)
 
     UID = await client.join(APP_ID, CHANNEL, TOKEN, null)
 
@@ -20,10 +21,10 @@ let joinAndDisplayLocalStream = async () => {
                 <span class="user-name">My name</span>
             </div>
             <div class="video-player" id="user-${UID}"></div>
-        </div>`;
+        </div>`
     document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
 
-    localTracks[1].play(`user-${UID}`);
+    localTracks[1].play(`user-${UID}`)
 
     await client.publish([localTracks[0], localTracks[1]])
 }
@@ -44,14 +45,19 @@ let handleUserJoined = async (user, mediaType) => {
                 <span class="user-name">My name</span>
             </div>
             <div class="video-player" id="user-${user.uid}"></div>
-        </div>`;
+        </div>`
         document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
-        user.videoTrack.play(`user-${user.uid}`);
+        user.videoTrack.play(`user-${user.uid}`)
     }
 
     if (mediaType === 'audio') {
         user.audioTrack.play()
     }
+}
+
+let handleUserLeft = async (user) => {
+    delete remoteUsers[user.uid]
+    document.getElementById(`user-container-${user.uid}`).remove()
 }
 
 joinAndDisplayLocalStream()
