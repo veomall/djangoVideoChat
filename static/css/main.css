@@ -1,0 +1,9 @@
+body {
+    background-color: aquamarine;
+}
+
+#logo {
+    display: block; 
+    width: 100px; 
+    margin: 0 auto;
+}
